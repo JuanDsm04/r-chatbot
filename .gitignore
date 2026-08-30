@@ -1,0 +1,17 @@
+.env
+
+# Logs de interacciones MCP
+logs/*.jsonl
+
+# Carpeta de trabajo de las demos de Filesystem y Git
+sandbox/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Sistema operativo
+.DS_Store

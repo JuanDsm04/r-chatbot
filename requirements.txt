@@ -1,0 +1,4 @@
+mcp>=1.27.0,<2.0.0
+anthropic>=1.4.0
+python-dotenv>=1.0.0
+mcp-server-git>=2025.1.0
