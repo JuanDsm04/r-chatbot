@@ -1,0 +1,13 @@
+{
+  "$comment": "Servidores MCP a los que conecta el chatbot. Cada entrada se vuelve un cliente MCP. ${PROJECT_ROOT} se reemplaza por la raiz del repositorio. Poner enabled en false para no conectar a un servidor sin borrar su entrada.",
+  "servers": {
+    "filesystem": {
+      "enabled": true,
+      "transport": "stdio",
+      "description": "Filesystem MCP server oficial (leer y escribir archivos dentro del sandbox).",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${PROJECT_ROOT}/sandbox"],
+      "env": {}
+    }
+  }
+}
