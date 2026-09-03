@@ -8,6 +8,15 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "${PROJECT_ROOT}/sandbox"],
       "env": {}
+    },
+
+    "git": {
+      "enabled": true,
+      "transport": "stdio",
+      "description": "Git MCP server oficial (status, diff, add, commit, log, ramas).",
+      "command": "python",
+      "args": ["-m", "mcp_server_git", "--repository", "${PROJECT_ROOT}/sandbox"],
+      "env": {}
     }
   }
 }
