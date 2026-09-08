@@ -12,6 +12,7 @@ Si un servidor falla al arrancar, los demas siguen funcionando.
 from __future__ import annotations
 
 import asyncio
+import json
 import sys
 from contextlib import AsyncExitStack
 from dataclasses import dataclass
@@ -118,7 +119,11 @@ class MCPManager:
             )
         else:  # "http": Streamable HTTP, para servidores remotos
             read_stream, write_stream, _get_session_id = await stack.enter_async_context(
-                streamablehttp_client(url=config.url, headers=config.headers or None)
+                streamablehttp_client(
+                    url=config.url,
+                    headers=config.headers or None,
+                    timeout=config.timeout,
+                )
             )
 
         session = await stack.enter_async_context(
@@ -281,8 +286,10 @@ class MCPManager:
                 parts.append(repr(block))
 
         # Si no hubo bloques de texto pero el servidor devolvio datos estructurados.
-        if not parts and result.structuredContent is not None:
-            parts.append(str(result.structuredContent))
+        # Muchos servidores devuelven un resumen en texto y los datos reales en
+        # structuredContent. 
+        if result.structuredContent is not None:
+            parts.append(json.dumps(result.structuredContent, ensure_ascii=False, indent=2))
 
         text = "\n".join(parts).strip() or "(la herramienta no devolvio contenido)"
         return f"La herramienta reporto un error: {text}" if result.isError else text

@@ -44,6 +44,7 @@ class ServerConfig:
     cwd: str | None = None
     url: str | None = None
     headers: dict[str, str] = field(default_factory=dict)
+    timeout: float = 30.0
 
     def validate(self) -> None:
         """Verifica que la entrada tenga los campos que exige su transporte."""
@@ -119,6 +120,7 @@ def load_server_registry(config_path: Path) -> list[ServerConfig]:
             cwd=entry.get("cwd"),
             url=entry.get("url"),
             headers=dict(entry.get("headers", {})),
+            timeout=float(entry.get("timeout", 30.0))
         )
         server.validate()
         servers.append(server)
